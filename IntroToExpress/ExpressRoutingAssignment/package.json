@@ -1,0 +1,14 @@
+{
+  "name": "routing-assignment",
+  "version": "1.0.0",
+  "description": "WDB Express Routing Assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicole Sattler",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
