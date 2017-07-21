@@ -1,28 +1,47 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
+var express = require("express"),
+    app = express(),
+    bodyParser = require("body-parser"),
+    mongoose = require("mongoose");
+    
+mongoose.connect("mongodb://localhost/yelp-camp", {useMongoClient: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-var campgrounds = [
-        {name: "Salmon Creek", image: "https://farm6.staticflickr.com/5319/7407436246_0ac54dd559.jpg"},
-        {name: "Granie Hill", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg"},
-        {name: "Mountain Goat's Rest", image: "https://farm7.staticflickr.com/6186/6090714876_44d269ed7e.jpg"},
-        {name: "Salmon Creek", image: "https://farm6.staticflickr.com/5319/7407436246_0ac54dd559.jpg"},
-        {name: "Granie Hill", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg"},
-        {name: "Mountain Goat's Rest", image: "https://farm7.staticflickr.com/6186/6090714876_44d269ed7e.jpg"},
-        {name: "Salmon Creek", image: "https://farm6.staticflickr.com/5319/7407436246_0ac54dd559.jpg"},
-        {name: "Granie Hill", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg"},
-        {name: "Mountain Goat's Rest", image: "https://farm7.staticflickr.com/6186/6090714876_44d269ed7e.jpg"}
-    ];
+//Schema Setup
+var campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String
+});
+
+var Campground = mongoose.model("Campground", campgroundSchema);
+//Schema End
+
+// Campground.create({
+//     name: "Mountain Goat's Rest",
+//     image: "https://farm7.staticflickr.com/6186/6090714876_44d269ed7e.jpg"
+// }, function(err, campground){
+//     if(err){
+//         console.log(err);
+//     } else {
+//         console.log("Campground Added!");
+//         console.log(campground);
+//     }
+// });
 
 app.get("/", function(req, res){
     res.render("landing");
 });
 
 app.get("/campgrounds", function(req, res){
-    res.render("campgrounds", {campgrounds: campgrounds});
+    Campground.find({}, function(err, campgrounds){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("campgrounds", {campgrounds: campgrounds});
+        }
+    });
+    
 });
 
 app.get("/campgrounds/new", function(req, res){
@@ -34,10 +53,13 @@ app.post("/campgrounds", function(req, res){
     var image = req.body.image;
     var newCampground = {name: name, image: image};
     
-    campgrounds.push(newCampground);
-    
-    res.redirect("/campgrounds");
-    
+    Campground.create(newCampground, function(err, campground){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
