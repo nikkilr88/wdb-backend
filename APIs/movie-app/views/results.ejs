@@ -1,4 +1,3 @@
-<% include partials/header %>
 
 <h1>Search Results</h1>
 
@@ -6,8 +5,7 @@
     <% data.Search.forEach(function(movie){ %>
 
         <li>
-            <img src="<%= movie.Poster %>" /> 
-            <br /> <%= movie.Title %> (<%= movie.Year %>)
+           <%= movie.Title %> (<%= movie.Year %>)
         </li>
 
     <% }); %>
@@ -15,4 +13,3 @@
 
 <a href="/">Search Again</a>
 
-<% include partials/footer %>
