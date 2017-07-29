@@ -6,17 +6,17 @@ var data = [
     {
         name: "Butterfly Woods",
         image: "https://farm7.staticflickr.com/6188/6106475454_cf4dab4d64.jpg",
-        description: "No butterflies here!"
+        description: "Lorem ipsum dolor sit amet, vidit deserunt cum ex. Mei vero prompta ut, labores accusamus salutatus id ius. Has te vero melius definitiones, quo id mentitum similique. Pro at vero lucilius. Ei quaeque invenire reformidans eam. Ad eum audire verterem complectitur, id eum noster cetero consequuntur. Has eu liber offendit, sale solet disputando id nec."
     },
     {
         name: "Fox's Path",
         image: "https://farm7.staticflickr.com/6082/6142484013_74e3f473b9.jpg",
-        description: "No foxes here!"
+        description: "Lorem ipsum dolor sit amet, vidit deserunt cum ex. Mei vero prompta ut, labores accusamus salutatus id ius. Has te vero melius definitiones, quo id mentitum similique. Pro at vero lucilius. Ei quaeque invenire reformidans eam. Ad eum audire verterem complectitur, id eum noster cetero consequuntur. Has eu liber offendit, sale solet disputando id nec."
     },
     {
         name: "Goat's Trail",
         image: "https://farm6.staticflickr.com/5059/5518252117_d232831997.jpg",
-        description: "No goats here!"
+        description: "Lorem ipsum dolor sit amet, vidit deserunt cum ex. Mei vero prompta ut, labores accusamus salutatus id ius. Has te vero melius definitiones, quo id mentitum similique. Pro at vero lucilius. Ei quaeque invenire reformidans eam. Ad eum audire verterem complectitur, id eum noster cetero consequuntur. Has eu liber offendit, sale solet disputando id nec."
     }
 ];
 
