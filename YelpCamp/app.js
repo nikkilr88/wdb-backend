@@ -13,15 +13,28 @@ mongoose.Promise = global.Promise;
     
 mongoose.connect("mongodb://localhost/yelp-camp", {useMongoClient: true});
 
+//App config
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+"/public"));
 seedDB();
 
+//Passport Config
+app.use(require("express-session")({
+    secret: "Pizza is awesome",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//Landing page
 app.get("/", function(req, res){
     res.render("landing");
 });
-
 
 //Index
 app.get("/campgrounds", function(req, res){
@@ -101,6 +114,44 @@ app.post("/campgrounds/:id/comments", function(req, res){
         }
     });
 });
+
+//===================
+// Auth Routes
+//===================
+
+//Show register form
+app.get("/register", function(req, res){
+   res.render("register"); 
+});
+
+//Handle sign up
+app.post("/register", function(req, res){
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/campgrounds");
+        });
+    });
+});
+
+//Show login form
+app.get("/login", function(req, res){
+   res.render("login"); 
+});
+
+//Handle login
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/campgrounds",
+        failureRedirect: "/login "
+        
+    }), function(req, res){
+});
+
 
 //Start server
 app.listen(process.env.PORT, process.env.IP, function(){
