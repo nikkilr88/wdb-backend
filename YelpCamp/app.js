@@ -152,6 +152,11 @@ app.post("/login", passport.authenticate("local",
     }), function(req, res){
 });
 
+//Logout
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/campgrounds");
+});
 
 //Start server
 app.listen(process.env.PORT, process.env.IP, function(){
