@@ -24,7 +24,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
     Campground.findById(req.params.id, function(err, campground){
         if(err){
-            console.log(err);
+            req.flash("error", "Something went wrong. :(")
             res.redirect("/campgrounds");
         } else {
            Comment.create(req.body.comment, function(err, comment){
@@ -76,6 +76,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
            console.log(err);
            res.redirect("back");
        } else {
+           req.flash("success", "Comment deleted.");
            res.redirect("/campgrounds/" + req.params.id);
        }
    }); 
