@@ -38,12 +38,13 @@ router.get("/:id", function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
     var name = req.body.name;
     var image = req.body.image;
+    var price = req.body.price;
     var description = req.body.description;
     var user = {
       id: req.user._id,
       username: req.user.username
     };
-    var newCampground = {name: name, image: image, description: description, author: user};
+    var newCampground = {name: name, price: price, image: image, description: description, author: user};
     
     Campground.create(newCampground, function(err, campground){
         if(err){
